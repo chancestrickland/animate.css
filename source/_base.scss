@@ -1,3 +1,4 @@
+@import 'settings';
 @import 'attention_seekers/attention_seekers';
 @import 'bouncing_entrances/bouncing_entrances';
 @import 'bouncing_exits/bouncing_exits';
@@ -14,33 +15,23 @@
 @import 'zooming_exits/zooming_exits';
 
 .animated {
-  animation-duration: 1s;
+  animation-duration: $animate-scss-default-duration;
   animation-fill-mode: both;
 
   &.infinite {
     animation-iteration-count: infinite;
   }
 
-  @each $num in 1, 2, 3, 4, 5 {
-    &.delay-#{$num}s {
-      animation-delay: #{$num}s;
+  @each $s in $animate-scss-second-delays {
+    &.delay-#{$s}s {
+      animation-delay: #{$s}s;
     }
   }
 
-  &.fast {
-    animation-duration: 800ms;
-  }
-
-  &.faster {
-    animation-duration: 500ms;
-  }
-
-  &.slow {
-    animation-duration: 2s;
-  }
-
-  &.slower {
-    animation-duration: 3s;
+  @each $speed, $duration in $animate-scss-durations {
+    &.#{$speed} {
+      animation-duration: $duration;
+    }
   }
 
   @media (prefers-reduced-motion) {
