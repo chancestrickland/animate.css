@@ -1,41 +1,16 @@
 @import 'settings';
-@import 'attention_seekers/attention_seekers';
-@import 'bouncing_entrances/bouncing_entrances';
-@import 'bouncing_exits/bouncing_exits';
-@import 'fading_entrances/fading_entrances';
-@import 'fading_exits/fading_exits';
-@import 'flippers/flippers';
-@import 'lightspeed/lightspeed';
-@import 'rotating_entrances/rotating_entrances';
-@import 'rotating_exits/rotating_exits';
-@import 'sliding_entrances/sliding_entrances';
-@import 'sliding_exits/sliding_exits';
-@import 'specials/specials';
-@import 'zooming_entrances/zooming_entrances';
-@import 'zooming_exits/zooming_exits';
-
-.animated {
-  animation-duration: $animate-scss-default-duration;
-  animation-fill-mode: both;
-
-  &.infinite {
-    animation-iteration-count: infinite;
-  }
-
-  @each $s in $animate-scss-second-delays {
-    &.delay-#{$s}s {
-      animation-delay: #{$s}s;
-    }
-  }
-
-  @each $speed, $duration in $animate-scss-durations {
-    &.#{$speed} {
-      animation-duration: $duration;
-    }
-  }
-
-  @media (prefers-reduced-motion) {
-    animation: unset !important;
-    transition: none !important;
-  }
-}
+@import 'attention_seekers';
+@import 'bouncing_entrances';
+@import 'bouncing_exits';
+@import 'fading_entrances';
+@import 'fading_exits';
+@import 'flippers';
+@import 'lightspeed';
+@import 'rotating_entrances';
+@import 'rotating_exits';
+@import 'sliding_entrances';
+@import 'sliding_exits';
+@import 'specials';
+@import 'zooming_entrances';
+@import 'zooming_exits';
+@import 'classes';

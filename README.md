@@ -4,20 +4,19 @@ _Just-add-water (s)CSS animation. A sass port of [Animate.css](https://daneden.g
 
 `animate.scss` is a bunch of cool, fun, and cross-browser animations for you to use in your projects. Great for emphasis, home pages, sliders, and general just-add-water-awesomeness.
 
-<!--
 ## Installation
 
 Install via npm:
 
 ```bash
-$ npm install animate.scss --save
+$ npm i @chancedigital/animate.scss
 ```
 
 or yarn:
 
 ```bash
-$ yarn add animate.scss
-``` -->
+$ yarn add @chancedigital/animate.scss
+```
 
 ## Usage
 
@@ -27,6 +26,21 @@ To use animate.scss in your website, you can either 1) simply drop the compiled 
 <head>
   <link rel="stylesheet" href="animate.min.css">
 </head>
+```
+
+If you are importing sass directly, you have two options. You can pull in the package as a whole -- including all animations -- by importing `animate.scss` from the package root:
+
+```scss
+@import '~@chancedigital/animate.scss/animate';
+```
+
+...or you can pull in animations (or animation groups) as you need them. Using this option, you'll also need to import the `settings` and `classes` files independently:
+
+```scss
+@import '~@chancedigital/animate.scss/source/settings'; // settings first!
+@import '~@chancedigital/animate.scss/source/flippers'; // animation group!
+@import '~@chancedigital/animate.scss/source/lightspeed/lightSpeedIn'; // individual animation!
+@import '~@chancedigital/animate.scss/source/classes'; // classes!
 ```
 
 ### Animations
