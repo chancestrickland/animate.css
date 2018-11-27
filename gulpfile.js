@@ -1,4 +1,5 @@
 // Utilities
+var path = require('path');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var fs = require('fs');
@@ -10,13 +11,15 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var gutil = require('gulp-util');
 var header = require('gulp-header');
+var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
+var sourcemaps = require('gulp-sourcemaps');
 
 // Misc/global vars
 var pkg = JSON.parse(fs.readFileSync('package.json'));
-var activatedAnimations = activateAnimations();
+var source = path.resolve(__dirname, './source');
 
 // Task options
 var opts = {
@@ -50,12 +53,15 @@ var opts = {
 
 gulp.task('createCSS', function() {
   return gulp
-    .src(activatedAnimations)
+    .src([source + '/_base.scss'])
     .pipe(concat(opts.concatName))
-    .pipe(postcss([autoprefixer(opts.autoprefixer)]))
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([require('postcss-import'), autoprefixer(opts.autoprefixer)]))
     .pipe(gulp.dest(opts.destPath))
     .pipe(postcss([cssnano({reduceIdents: {keyframes: false}})]))
     .pipe(rename(opts.minRename))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(opts.destPath));
 });
 
@@ -67,41 +73,3 @@ gulp.task('addHeader', function() {
 });
 
 gulp.task('default', gulp.series('createCSS', 'addHeader'));
-
-// ----------------------------
-// Helpers/functions
-// ----------------------------
-
-// Read the config file and return an array of the animations to be activated
-function activateAnimations() {
-  var categories = JSON.parse(fs.readFileSync('animate-config.json')),
-    category,
-    files,
-    file,
-    target = [],
-    count = 0;
-
-  for (category in categories) {
-    if (categories.hasOwnProperty(category)) {
-      files = categories[category];
-
-      for (file in files) {
-        if (files[file]) {
-          // marked as true
-          target.push('source/' + category + '/' + file + '.css');
-          count += 1;
-        }
-      }
-    }
-  }
-  // prepend base CSS
-  target.push('source/_base.css');
-
-  if (!count) {
-    gutil.log('No animations activated.');
-  } else {
-    gutil.log(count + (count > 1 ? ' animations' : ' animation') + ' activated.');
-  }
-
-  return target;
-}
