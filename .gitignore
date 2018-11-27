@@ -4,5 +4,6 @@
 .ini
 .log
 .sass-cache
+.nvmrc
 node_modules/
 test/
