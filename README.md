@@ -1,5 +1,7 @@
 # Animate.scss
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/chancestrickland/animate.scss.svg)](https://greenkeeper.io/)
+
 _Just-add-water (s)CSS animation. A sass port of [Animate.css](https://daneden.github.io/animate.css/)_
 
 `animate.scss` is a bunch of cool, fun, and cross-browser animations for you to use in your projects. Great for emphasis, home pages, sliders, and general just-add-water-awesomeness.
